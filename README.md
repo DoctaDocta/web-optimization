@@ -1,5 +1,32 @@
 ## Website Performance Optimization portfolio project
 
+Hi! I would like to walk you through how this works.
+
+This is a web page. Load index.html into your browser. OR in your terminal, in this folder, type "Python -m SimpleHTTPServer" and access the localhost in your browser.
+
+I used this UdacityFE project to apply what i have learned about optimizing code for websites.
+
+I used Google PageSpeed to see what could be improved. I compressed imgs, async'd my javascript, and inlined my css. I had to learn about the rendering critical pipeline. this allowed my whole page to be more straightforward and smaller to render. All good things.
+
+Then i went on to views/js/main.js and took a look at how the page was being styled. You see, google chrome web dev tools told me that the pizza website had a lot of bottlenecking. too much layout and style back to back. How could we streamline these things?
+
+Well in the code there were a few places where we could reduce redundant calculations by placing certain variables outside of for loops. there were also ways of applying style that were less taxing on the computer, like changing width percentage-wise rather than by calculating the size of the screen and pixels therein.
+
+document.querySelectorAll() is one of the slowest methods to access our specified DOM elements. document.getElementsByClassName() is much faster.
+
+
+i changed this:
+  for (var i = 0; i < randomPizzas.length; i++) {
+to this:
+  var lengthRandomPizzas = randomPizzas.length;
+  for (var i = 0; i < lengthRandomPizzas; i++) {
+
+to avoid redundant calculations.
+
+
+
+## INITIAL INSTRUCTIONS BELOW THIS LINE
+------------------------------------------------------------
 Your challenge, if you wish to accept it (and we sure hope you will), is to optimize this online portfolio for speed! In particular, optimize the critical rendering path and make this page render as quickly as possible by applying the techniques you've picked up in the [Critical Rendering Path course](https://www.udacity.com/course/ud884).
 
 To get started, check out the repository, inspect the code,
@@ -32,7 +59,7 @@ Profile, optimize, measure... and then lather, rinse, and repeat. Good luck!
 
 ####Part 2: Optimize Frames per Second in pizza.html
 
-To optimize views/pizza.html, you will need to modify views/js/main.js until your frames per second rate is 60 fps or higher. You will find instructive comments in main.js. 
+To optimize views/pizza.html, you will need to modify views/js/main.js until your frames per second rate is 60 fps or higher. You will find instructive comments in main.js.
 
 You might find the FPS Counter/HUD Display useful in Chrome developer tools described here: [Chrome Dev Tools tips-and-tricks](https://developer.chrome.com/devtools/docs/tips-and-tricks).
 

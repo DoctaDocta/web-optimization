@@ -9,7 +9,7 @@
 
 body {
   font-family: "Trebuchet MS", Helvetica, sans-serif;
-  background-color: rgba(240, 60, 60, 0.8);
+  background: black;
 }
 
 input {
@@ -49,5 +49,6 @@ form {
 }
 
  .container {
-  transform: translateZ(0);
+  background-color: rgba(240, 60, 60, 0.8);
+
 }

@@ -2,13 +2,7 @@
 Welcome to the 60fps project! Your goal is to make Cam's Pizzeria website run
 jank-free at 60 frames per second.
 
-There are two major issues in this code that lead to sub-60fps performance. Can
-you spot and fix both?
-
-
-Built into the code, you'll find a few instances of the User Timing API
-(window.performance), which will be console.log()ing frame rate data into the
-browser console. To learn more about User Timing API, check out:
+To learn more about User Timing API, check out:
 http://www.html5rocks.com/en/tutorials/webperformance/usertiming/
 
 Creator:
@@ -16,8 +10,17 @@ Cameron Pittman, Udacity Course Developer
 cameron *at* udacity *dot* com
 */
 
+
+/*
+My name is Andre Ehrlich. I optimized this webpage to run at 60FPS. That meant
+looking out for some bottlenecking in how the page is rendered.
+
+August 2015
+*/
+
 // As you may have realized, this website randomly generates pizzas.
 // Here are arrays of all possible pizza ingredients.
+
 var pizzaIngredients = {};
 pizzaIngredients.meats = [
   "Pepperoni",
@@ -422,6 +425,9 @@ var resizePizzas = function(size) {
   changeSliderLabel(size);
 
     // Changes the slider value to a percent width
+    // this function use to have the width in pixels
+    // i changed it to avoid calculating pixels as part of the
+    // function. it was unnecessary.
   function changePizzaSizes(size) {
     switch(size) {
       case "1":
@@ -444,13 +450,16 @@ var resizePizzas = function(size) {
 
 
   // Iterates through pizza elements on the page and changes their widths
-  var randomPizzas = document.querySelectorAll(".randomPizzaContainer");
+  var randomPizzas = document.getElementsByClassName("randomPizzaContainer");
   var newwidth;
 
   changePizzaSizes(size);
 
-
-  for (var i = 0; i < randomPizzas.length; i++) {
+// simplified the for loop and removed unnecessary functions.
+// also calculated var randomPizzas above the loop to prevent
+// repetitive calculations.
+var lengthRandomPizzas = randomPizzas.length;
+  for (var i = 0; i < lengthRandomPizzas; i++) {
     randomPizzas[i].style.width = newwidth + '%';
     console.log("applying style.width = newwidth;");
   }
@@ -464,9 +473,12 @@ var resizePizzas = function(size) {
 
 window.performance.mark("mark_start_generating"); // collect timing data
 
+// haha reduced the number of pizzas from 200 to 48
+// to simply render fewer elements ahahaha.
 // This for-loop actually creates and appends all of the pizzas when the page loads
-for (var i = 2; i < 20; i++) {
   var pizzasDiv = document.getElementById("randomPizzas");
+  //moved this variable out of the for loop!
+for (var i = 2; i < 48; i++) {
   pizzasDiv.appendChild(pizzaElementGenerator(i));
 }
 
@@ -497,12 +509,17 @@ function logAverageFrame(times) {   // times is the array of User Timing measure
 function updatePositions() {
   frame++;
   window.performance.mark("mark_start_frame");
+
+  // moved doc.body.scrollTop and var phase out of for loop so it isn't
+  // calculated repitively. just once will do.
   var cachedScrollTop=document.body.scrollTop;
+  var phase;
 
 
-  var items = document.querySelectorAll('.mover');
+  var items = document.getElementsByClassName('mover');
+  var lengthItems = items.length;
   console.log("items.length: " + items.length);
-  for (var i = 0; i < items.length; i++) {
+  for (var i = 0; i < lengthItems; i++) {
     var phase = Math.sin((cachedScrollTop/ 1250) + (i % 5));  //cached the scrollTop api to save time.
     items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
   }
