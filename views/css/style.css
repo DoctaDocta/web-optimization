@@ -10,6 +10,7 @@
 body {
   font-family: "Trebuchet MS", Helvetica, sans-serif;
   background: black;
+  backface-visibility: hidden;
 }
 
 input {
@@ -27,19 +28,22 @@ form {
 
 #pizzaSize {
   font-weight: 800;
-  will-change: transform;
-  transform: translateZ(0);
 }
 
 .mover {
   position: fixed;
   width: 256px;
-  z-index: -1;
+  transform: translateZ(0);
+  transform: translate3d(0,0,0);
+  backface-visibility: hidden;
 }
 
 .randomPizzaContainer {
   float: left;
   display: flex;
+  transform: translateZ(0);
+  transform: translate3d(0,0,0);
+  backface-visibility: hidden;
 }
 
 .randomPizzaContainer:after {

@@ -6,7 +6,8 @@ This is a web page. Load index.html into your browser. OR in your terminal, in t
 
 I used this UdacityFE project to apply what i have learned about optimizing code for websites.
 
-I used Google PageSpeed to see what could be improved. I compressed imgs, async'd my javascript, and inlined my css. I had to learn about the rendering critical pipeline. this allowed my whole page to be more straightforward and smaller to render. All good things.
+I used Google PageSpeed to see what could be improved. I compressed imgs, async'd my javascript, and inlined my css. I had to learn about the rendering critical pipeline. this allowed my whole page to be more straightforward and smaller t
+o render. All good things.
 
 Then i went on to views/js/main.js and took a look at how the page was being styled. You see, google chrome web dev tools told me that the pizza website had a lot of bottlenecking. too much layout and style back to back. How could we streamline these things?
 
@@ -22,6 +23,10 @@ to this:
   for (var i = 0; i < lengthRandomPizzas; i++) {
 
 to avoid redundant calculations.
+
+I calculated the height of the screen, and based the number of moving pizzas on that. So i wouldn't paint more than i needed to.
+
+In CSS/style.css, i only made a few changes. They have to do with layering, so i only paint the parts of the page that i want. This helped me with scrolling, since the text and background are already loaded, i wanted them on a different layer than the moving pizzas. IN that case, i used z-indexes to delinieate various planes on my page. I also looked into backface-visibility.
 
 
 
