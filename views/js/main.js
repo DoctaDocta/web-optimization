@@ -478,7 +478,7 @@ window.performance.mark("mark_start_generating"); // collect timing data
 // This for-loop actually creates and appends all of the pizzas when the page loads
   var pizzasDiv = document.getElementById("randomPizzas");
   //moved this variable out of the for loop!
-for (var i = 2; i < 48; i++) {
+for (var i = 2; i < 100; i++) {
   pizzasDiv.appendChild(pizzaElementGenerator(i));
 }
 
@@ -521,7 +521,7 @@ function updatePositions() {
 
   var items = document.getElementsByClassName('mover');
   var lengthItems = items.length;
-  console.log("items.length: " + items.length);
+  //console.log("items.length: " + items.length);
 
   for (var i = 0; i < lengthItems; i++) {
     var phase = Math.sin((cachedScrollTop/ 1250) + (i % 5));  //cached the scrollTop api to save time.
@@ -538,27 +538,26 @@ function updatePositions() {
   }
 }
 
-
-//dynamically calculate the number of pizzas needed
-// to fill the screen, based on browser window resolution.
-
-
-
-
 // runs updatePositions on scroll
 window.addEventListener('scroll', updatePositions);
 
 // Generates the sliding pizzas when the page loads.
 document.addEventListener('DOMContentLoaded', function() {
   var s = 256;
+
+//dynamically calculate the number of pizzas needed
+// to fill the screen, based on browser window resolution.
   var screenHeight = window.screen.height;
   var screenWidth = window.screen.width;
+// scale down total screen dimensions to number of pizzas reasonable
+// to render on the page... these were rough numbers.
   var moverCols = Math.floor(screenWidth / 200);
   var moverRows = Math.floor(screenHeight / 100);
   var numberMoverPizzas = moverRows * moverCols;
-  console.log("moverRows: " + moverRows + "pizzas" +
-    "moverCols: " + moverCols + "pizzas");
+  //console.log("moverRows: " + moverRows + "pizzas" +
+  //  "moverCols: " + moverCols + "pizzas");
   var movingPizzas1 = document.getElementById("movingPizzas1");
+
   for (var i = 0; i < numberMoverPizzas; i++) {
     var elem = document.createElement('img');
     elem.className = 'mover';
